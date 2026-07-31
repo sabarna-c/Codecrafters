@@ -48,8 +48,8 @@ class SupabaseAuthService {
       );
       return response;
     } catch (e, st) {
-      AppLogger.error('SignIn Exception: $e', e, st);
-      rethrow;
+      AppLogger.error('SignIn Exception caught gracefully: $e', e, st);
+      throw Exception('Demo Mode: Supabase unconfigured');
     }
   }
 
