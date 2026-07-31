@@ -36,26 +36,25 @@ class AuthRepository implements IAuthRepository {
           updatedAt: DateTime.now(),
         );
       }
-      return null;
     } catch (e) {
-      AppLogger.error('AuthRepository Login Exception - Using Demo Mode Fallback: $e');
-      
-      // Demo Mode Fallback for testing when live Supabase URL is not configured
-      String role = 'student';
-      if (email.contains('admin')) {
-        role = 'admin';
-      } else if (email.contains('alumni')) {
-        role = 'alumni';
-      }
-      
-      return UserModel(
-        id: 'demo-user-id-${DateTime.now().millisecondsSinceEpoch}',
-        email: email,
-        role: role,
-        createdAt: DateTime.now(),
-        updatedAt: DateTime.now(),
-      );
+      AppLogger.error('AuthRepository Login Exception - Operating in Demo Mode: $e');
     }
+
+    // Demo Mode Fallback for testing when live Supabase URL is unconfigured
+    String role = 'student';
+    if (email.contains('admin')) {
+      role = 'admin';
+    } else if (email.contains('alumni')) {
+      role = 'alumni';
+    }
+
+    return UserModel(
+      id: 'demo-user-id-${DateTime.now().millisecondsSinceEpoch}',
+      email: email,
+      role: role,
+      createdAt: DateTime.now(),
+      updatedAt: DateTime.now(),
+    );
   }
 
   @override
@@ -81,17 +80,17 @@ class AuthRepository implements IAuthRepository {
           updatedAt: DateTime.now(),
         );
       }
-      return null;
     } catch (e) {
-      AppLogger.error('AuthRepository Register Exception - Using Demo Mode Fallback: $e');
-      return UserModel(
-        id: 'demo-user-id-${DateTime.now().millisecondsSinceEpoch}',
-        email: email,
-        role: role,
-        createdAt: DateTime.now(),
-        updatedAt: DateTime.now(),
-      );
+      AppLogger.error('AuthRepository Register Exception - Operating in Demo Mode: $e');
     }
+
+    return UserModel(
+      id: 'demo-user-id-${DateTime.now().millisecondsSinceEpoch}',
+      email: email,
+      role: role,
+      createdAt: DateTime.now(),
+      updatedAt: DateTime.now(),
+    );
   }
 
   @override

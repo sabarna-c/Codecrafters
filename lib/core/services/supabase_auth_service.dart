@@ -47,9 +47,6 @@ class SupabaseAuthService {
         password: password,
       );
       return response;
-    } on AuthException catch (e) {
-      AppLogger.warn('AuthException encountered: ${e.message}');
-      rethrow;
     } catch (e, st) {
       AppLogger.error('SignIn Exception: $e', e, st);
       rethrow;
