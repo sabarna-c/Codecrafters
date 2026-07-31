@@ -1,0 +1,51 @@
+name: alumniconnect_plus
+description: "A professional alumni networking platform for BIT College built with Flutter, Riverpod, GoRouter, and Supabase."
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
+  # State Management
+  flutter_riverpod: ^2.5.1
+
+  # Routing
+  go_router: ^14.2.0
+
+  # Backend & Auth
+  supabase_flutter: ^2.6.0
+
+  # UI & Design System
+  google_fonts: ^6.2.1
+  flutter_spinkit: ^5.2.1
+  cached_network_image: ^3.3.1
+  font_awesome_flutter: ^10.7.0
+  intl: ^0.20.2
+  fl_chart: ^0.68.0
+
+  # Features (QR & Scanner)
+  qr_flutter: ^4.1.0
+  mobile_scanner: ^5.1.1
+
+  # Storage & Helpers
+  shared_preferences: ^2.2.3
+  url_launcher: ^6.3.0
+  uuid: ^4.4.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+    - assets/icons/
