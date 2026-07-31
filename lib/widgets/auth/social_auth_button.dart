@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 /// Social OAuth Button (Google, Microsoft)
 class SocialAuthButton extends StatelessWidget {
@@ -17,7 +16,7 @@ class SocialAuthButton extends StatelessWidget {
   factory SocialAuthButton.google({required VoidCallback onPressed}) {
     return SocialAuthButton(
       label: 'Continue with Google',
-      icon: FontAwesomeIcons.google,
+      icon: Icons.g_mobiledata_rounded,
       onPressed: onPressed,
     );
   }
@@ -38,7 +37,7 @@ class SocialAuthButton extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          FaIcon(icon, size: 18),
+          Icon(icon, size: 20, color: isDark ? Colors.white : Colors.black87),
           const SizedBox(width: 12),
           Text(
             label,
