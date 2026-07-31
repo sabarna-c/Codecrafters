@@ -100,20 +100,30 @@ class AuthRepository implements IAuthRepository {
 
   @override
   Future<void> logout() async {
-    await _authService.signOut();
+    try {
+      await _authService.signOut();
+    } catch (_) {}
   }
 
   @override
   Future<UserModel?> getCurrentUser() async {
-    final user = _authService.currentUser;
-    if (user == null) return null;
-    return await _authService.fetchUserData(user.id);
+    try {
+      final user = _authService.currentUser;
+      if (user == null) return null;
+      return await _authService.fetchUserData(user.id);
+    } catch (e) {
+      return null;
+    }
   }
 
   @override
   Future<ProfileModel?> getCurrentProfile() async {
-    final user = _authService.currentUser;
-    if (user == null) return null;
-    return await _authService.fetchProfile(user.id);
+    try {
+      final user = _authService.currentUser;
+      if (user == null) return null;
+      return await _authService.fetchProfile(user.id);
+    } catch (e) {
+      return null;
+    }
   }
 }

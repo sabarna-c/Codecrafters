@@ -76,7 +76,8 @@ class AuthNotifier extends StateNotifier<AuthState> {
       final profile = await _repository.getCurrentProfile();
       state = state.copyWith(isLoading: false, user: user, profile: profile);
     } catch (e) {
-      state = state.copyWith(isLoading: false, errorMessage: e.toString());
+      // Ignore background check errors when offline / unconfigured
+      state = state.copyWith(isLoading: false, errorMessage: null);
     }
   }
 
