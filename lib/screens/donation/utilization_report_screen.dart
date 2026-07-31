@@ -56,7 +56,7 @@ class UtilizationReportScreen extends ConsumerWidget {
                     ),
                     Container(
                       padding: const EdgeInsets.all(10),
-                      decoration: BoxDecoration(color: Colors.white24, shape: BoxShape.circle),
+                      decoration: const BoxDecoration(color: Colors.white24, shape: BoxShape.circle),
                       child: const Icon(Icons.verified_rounded, color: Colors.white, size: 28),
                     ),
                   ],
