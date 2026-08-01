@@ -80,7 +80,11 @@ class SupabaseAuthService {
   /// Fetch Profile Details
   Future<ProfileModel?> fetchProfile(String userId) async {
     try {
-      final data = await _client.from('profiles').select('*, departments(name), batches(year)').eq('user_id', userId).maybeSingle();
+      final data = await _client
+          .from('profiles')
+          .select('*, departments(name), batches(year), users(email)')
+          .eq('user_id', userId)
+          .maybeSingle();
       if (data != null) {
         return ProfileModel.fromJson(data);
       }

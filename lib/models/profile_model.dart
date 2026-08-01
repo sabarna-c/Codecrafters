@@ -3,6 +3,7 @@ class ProfileModel {
   final String id;
   final String userId;
   final String fullName;
+  final String? email;
   final String? avatarUrl;
   final String? bio;
   final String? headline;
@@ -24,6 +25,7 @@ class ProfileModel {
     required this.id,
     required this.userId,
     required this.fullName,
+    this.email,
     this.avatarUrl,
     this.bio,
     this.headline,
@@ -47,6 +49,7 @@ class ProfileModel {
       id: json['id'] as String,
       userId: json['user_id'] as String,
       fullName: json['full_name'] as String? ?? 'BIT Member',
+      email: json['users'] != null ? json['users']['email'] as String? : null,
       avatarUrl: json['avatar_url'] as String?,
       bio: json['bio'] as String?,
       headline: json['headline'] as String?,
@@ -75,6 +78,7 @@ class ProfileModel {
       'id': id,
       'user_id': userId,
       'full_name': fullName,
+      'email': email,
       'avatar_url': avatarUrl,
       'bio': bio,
       'headline': headline,

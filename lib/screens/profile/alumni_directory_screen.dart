@@ -18,11 +18,11 @@ class _AlumniDirectoryScreenState extends ConsumerState<AlumniDirectoryScreen> {
   final _searchController = TextEditingController();
 
   final List<String> _popularSkills = const [
-    'Flutter',
-    'Machine Learning',
-    'System Design',
-    'Product Strategy',
+    'Career Guidance',
+    'Leadership',
+    'Product',
     'Cloud',
+    'Mentoring',
   ];
 
   @override

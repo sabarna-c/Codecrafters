@@ -21,6 +21,12 @@ class AppTheme {
     ),
     scaffoldBackgroundColor: AppColors.lightBackground,
     textTheme: AppTypography.textTheme(false),
+    appBarTheme: const AppBarTheme(
+      backgroundColor: AppColors.lightBackground,
+      foregroundColor: AppColors.lightTextPrimary,
+      elevation: 0,
+      surfaceTintColor: Colors.transparent,
+    ),
     cardTheme: CardThemeData(
       color: AppColors.lightSurface,
       elevation: 1.5,

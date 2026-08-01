@@ -76,14 +76,21 @@ class AlumniCard extends ConsumerWidget {
                         const SizedBox(height: 2),
                         Text(
                           alumni.headline ?? '${alumni.jobTitle ?? 'Alumni'} at ${alumni.company ?? 'BIT College'}',
-                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: 13),
+                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: 12.5),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          alumni.email ?? 'No email on file',
+                          style: Theme.of(context).textTheme.labelSmall?.copyWith(fontSize: 11.5),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
                         const SizedBox(height: 4),
                         Text(
                           '${alumni.departmentName ?? 'BIT'} • Batch of ${alumni.batchYear ?? 2020}',
-                          style: Theme.of(context).textTheme.labelSmall,
+                          style: Theme.of(context).textTheme.labelSmall?.copyWith(fontSize: 11.5),
                         ),
                       ],
                     ),
@@ -102,7 +109,7 @@ class AlumniCard extends ConsumerWidget {
               Row(
                 children: [
                   Expanded(
-                    child: OutlinedButton.icon(
+                    child: OutlinedButton(
                       onPressed: () async {
                         final nowFollowing = await ref.read(alumniDirectoryProvider.notifier).toggleFollow(alumni.userId);
                         if (context.mounted) {
@@ -112,8 +119,7 @@ class AlumniCard extends ConsumerWidget {
                           );
                         }
                       },
-                      icon: Icon(isFollowing ? Icons.check : Icons.person_add_rounded, size: 18),
-                      label: Text(isFollowing ? 'Following' : 'Follow'),
+                      child: Text(isFollowing ? 'Following' : 'Follow'),
                       style: OutlinedButton.styleFrom(
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                       ),
@@ -121,12 +127,11 @@ class AlumniCard extends ConsumerWidget {
                   ),
                   const SizedBox(width: 12),
                   Expanded(
-                    child: ElevatedButton.icon(
+                    child: ElevatedButton(
                       onPressed: () {
                         SnackbarUtils.showSuccess(context, 'Opening chat with ${alumni.fullName}...');
                       },
-                      icon: const Icon(Icons.chat_bubble_outline_rounded, size: 18),
-                      label: const Text('Message'),
+                      child: const Text('Message'),
                       style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                       ),

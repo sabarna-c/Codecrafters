@@ -59,20 +59,29 @@ class AlumniProfileDetailScreen extends ConsumerWidget {
                           children: [
                             Row(
                               children: [
-                                Text(
-                                  alumni.fullName,
-                                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
+                                Flexible(
+                                  child: Text(
+                                    alumni.fullName,
+                                    style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
                                 ),
                                 if (alumni.isVerified) ...[
                                   const SizedBox(width: 6),
-                                  const Icon(Icons.verified_rounded, color: AppColors.secondaryEmerald, size: 22),
+                                  const Icon(Icons.verified_rounded, color: AppColors.secondaryEmerald, size: 20),
                                 ],
                               ],
                             ),
                             const SizedBox(height: 4),
                             Text(
                               alumni.headline ?? '${alumni.jobTitle} at ${alumni.company}',
-                              style: Theme.of(context).textTheme.titleMedium?.copyWith(color: AppColors.primaryBlueLight),
+                              style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppColors.primaryBlueLight),
+                            ),
+                            const SizedBox(height: 4),
+                            Text(
+                              alumni.email ?? 'No email available',
+                              style: Theme.of(context).textTheme.labelMedium?.copyWith(color: Colors.grey.shade700),
                             ),
                           ],
                         ),
@@ -80,18 +89,18 @@ class AlumniProfileDetailScreen extends ConsumerWidget {
                     ],
                   ),
                   const SizedBox(height: 16),
-                  _buildDetailTile(Icons.school_rounded, '${alumni.departmentName ?? 'BIT College'} • Batch of ${alumni.batchYear ?? 2020}'),
-                  _buildDetailTile(Icons.business_rounded, '${alumni.company ?? 'N/A'} (${alumni.jobTitle ?? 'Alumni'})'),
-                  if (alumni.location != null) _buildDetailTile(Icons.location_on_rounded, alumni.location!),
+                  _buildDetailTile('${alumni.departmentName ?? 'BIT College'} • Batch of ${alumni.batchYear ?? 2020}'),
+                  _buildDetailTile('${alumni.company ?? 'N/A'} (${alumni.jobTitle ?? 'Alumni'})'),
+                  if (alumni.location != null) _buildDetailTile(alumni.location!),
                   const SizedBox(height: 24),
-                  Text('About', style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold)),
+                  Text('About', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
                   const SizedBox(height: 8),
                   Text(
                     alumni.bio ?? 'No bio provided.',
-                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(height: 1.5),
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(height: 1.5),
                   ),
                   const SizedBox(height: 24),
-                  Text('Skills & Expertise', style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold)),
+                  Text('Skills & Expertise', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
                   const SizedBox(height: 12),
                   Wrap(
                     spacing: 8,
@@ -128,16 +137,10 @@ class AlumniProfileDetailScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildDetailTile(IconData icon, String title) {
+  Widget _buildDetailTile(String title) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
-      child: Row(
-        children: [
-          Icon(icon, size: 20, color: Colors.grey),
-          const SizedBox(width: 10),
-          Expanded(child: Text(title, style: const TextStyle(fontSize: 14))),
-        ],
-      ),
+      child: Text(title, style: const TextStyle(fontSize: 14)),
     );
   }
 }

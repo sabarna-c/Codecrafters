@@ -18,7 +18,7 @@ class SupabaseDirectoryService {
     int pageSize = 20,
   }) async {
     try {
-      var query = _client.from('profiles').select('*, departments(name), batches(year)');
+      var query = _client.from('profiles').select('*, departments(name), batches(year), users(email)');
 
       if (filter.onlyVerified) {
         query = query.eq('is_verified', true);
@@ -85,15 +85,16 @@ class SupabaseDirectoryService {
         id: 'p1',
         userId: 'u1',
         fullName: 'Sarah Jenkins',
+        email: 'sarah.jenkins@bitcollege.edu',
         headline: 'Senior Software Engineer at Google',
         company: 'Google',
         jobTitle: 'Senior Software Engineer',
         location: 'Mountain View, CA',
         departmentName: 'Computer Science & Engineering',
         batchYear: 2020,
-        skills: const ['Flutter', 'Dart', 'Distributed Systems', 'GCP', 'System Design'],
+        skills: const ['Software Engineering', 'Distributed Systems', 'Cloud', 'Mentoring', 'System Design'],
         isVerified: true,
-        bio: 'BIT CSE 2020 Graduate. Passionate about cross-platform architecture, high-scale backend engineering, and mentoring students.',
+        bio: 'BIT CSE 2020 Graduate. Passionate about scalable engineering, mentoring students, and helping the BIT community grow.',
         createdAt: now,
         updatedAt: now,
       ),
@@ -101,6 +102,7 @@ class SupabaseDirectoryService {
         id: 'p2',
         userId: 'u2',
         fullName: 'Alex Vance',
+        email: 'alex.vance@bitcollege.edu',
         headline: 'Lead Product Manager at Microsoft',
         company: 'Microsoft',
         jobTitle: 'Lead Product Manager',
@@ -117,15 +119,16 @@ class SupabaseDirectoryService {
         id: 'p3',
         userId: 'u3',
         fullName: 'Rahul Sharma',
-        headline: 'AI Research Scientist at Amazon Web Services',
+        email: 'rahul.sharma@bitcollege.edu',
+        headline: 'Data & AI Leader at Amazon Web Services',
         company: 'AWS',
-        jobTitle: 'AI Research Scientist',
+        jobTitle: 'Data & AI Leader',
         location: 'Austin, TX',
         departmentName: 'Electronics & Communication',
         batchYear: 2021,
-        skills: const ['Python', 'PyTorch', 'Machine Learning', 'AWS SageMaker', 'LLMs'],
+        skills: const ['Data Strategy', 'Analytics', 'Cloud Platforms', 'Team Leadership', 'Research'],
         isVerified: true,
-        bio: 'Pioneering LLM fine-tuning techniques. Eager to collaborate on AI projects with BIT College researchers.',
+        bio: 'A BIT alumni focused on AI-driven products, data strategy, and helping students learn practical industry skills.',
         createdAt: now,
         updatedAt: now,
       ),

@@ -23,8 +23,6 @@ import '../screens/settings/admin_broadcast_notification_screen.dart';
 import '../screens/events/events_screen.dart';
 import '../screens/events/event_detail_screen.dart';
 import '../screens/events/qr_scanner_screen.dart';
-import '../screens/jobs/jobs_screen.dart';
-import '../screens/jobs/job_post_screen.dart';
 import '../screens/donation/donation_screen.dart';
 import '../screens/donation/donation_checkout_screen.dart';
 import '../screens/donation/utilization_report_screen.dart';
@@ -51,8 +49,6 @@ class AppRoutes {
   static const String events = '/events';
   static const String eventDetail = '/events/detail';
   static const String eventScan = '/events/scan';
-  static const String jobs = '/jobs';
-  static const String jobsPost = '/jobs/post';
   static const String donation = '/donation';
   static const String settings = '/settings';
 }
@@ -92,8 +88,6 @@ final GoRouter appRouter = GoRouter(
       builder: (c, s) => EventDetailScreen(event: s.extra as EventModel),
     ),
     GoRoute(path: AppRoutes.eventScan, builder: (c, s) => const QRScannerScreen()),
-    GoRoute(path: AppRoutes.jobs, builder: (c, s) => const JobsScreen()),
-    GoRoute(path: AppRoutes.jobsPost, builder: (c, s) => const JobPostScreen()),
     GoRoute(path: AppRoutes.donation, builder: (c, s) => const DonationScreen()),
     GoRoute(
       path: '/donation/checkout/:causeId',
