@@ -23,7 +23,12 @@ class AlumniDashboardScreen extends ConsumerWidget {
             child: _ProfileCorner(
               name: profileName,
               email: email,
-              onTap: () => context.push(AppRoutes.directory),
+              onLogout: () async {
+                await ref.read(authControllerProvider.notifier).logout();
+                if (context.mounted) {
+                  context.go(AppRoutes.login);
+                }
+              },
             ),
           ),
         ],
@@ -37,28 +42,25 @@ class AlumniDashboardScreen extends ConsumerWidget {
               width: double.infinity,
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: AppColors.lightSurface,
+                color: AppColors.primaryBlue,
                 borderRadius: BorderRadius.circular(16),
-                border: Border.all(color: AppColors.lightBorder),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     'Verified Alumni',
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold, color: Colors.white),
                   ),
                   const SizedBox(height: 4),
                   Text(
                     'Senior SDE • Google | BIT CSE 2020',
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(color: AppColors.lightTextSecondary),
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.white70),
                   ),
                 ],
               ),
             ),
             const SizedBox(height: 20),
-            Text('Alumni Management', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
-            const SizedBox(height: 12),
             GridView.count(
               crossAxisCount: 2,
               shrinkWrap: true,
@@ -117,36 +119,51 @@ class AlumniDashboardScreen extends ConsumerWidget {
 class _ProfileCorner extends StatelessWidget {
   final String name;
   final String email;
-  final VoidCallback onTap;
+  final VoidCallback onLogout;
 
   const _ProfileCorner({
     required this.name,
     required this.email,
-    required this.onTap,
+    required this.onLogout,
   });
 
   @override
   Widget build(BuildContext context) {
     final initials = name.trim().split(RegExp(r'\s+')).take(2).map((e) => e[0]).join().toUpperCase();
 
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(999),
+    return PopupMenuButton<int>(
+      offset: const Offset(0, 44),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
           CircleAvatar(radius: 14, child: Text(initials)),
           const SizedBox(width: 8),
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(name, style: Theme.of(context).textTheme.labelSmall?.copyWith(fontWeight: FontWeight.bold)),
-              Text(email, style: Theme.of(context).textTheme.labelSmall?.copyWith(fontSize: 10)),
-            ],
-          ),
+          Text(name, style: Theme.of(context).textTheme.labelSmall?.copyWith(fontWeight: FontWeight.bold)),
         ],
       ),
+      itemBuilder: (context) => [
+        PopupMenuItem<int>(
+          enabled: false,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(name, style: Theme.of(context).textTheme.labelMedium?.copyWith(fontWeight: FontWeight.bold)),
+              const SizedBox(height: 2),
+              Text(email, style: Theme.of(context).textTheme.labelSmall?.copyWith(color: AppColors.lightTextSecondary)),
+            ],
+          ),
+        ),
+        PopupMenuItem<int>(
+          value: 1,
+          child: const Text('Logout'),
+        ),
+      ],
+      onSelected: (value) {
+        if (value == 1) {
+          onLogout();
+        }
+      },
     );
   }
 }
