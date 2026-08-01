@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:qr_flutter/qr_flutter.dart';
 import '../../models/event_model.dart';
 import '../../core/theme/app_colors.dart';
 
@@ -65,18 +64,7 @@ class EventCard extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(12),
-                    child: Container(
-                      padding: const EdgeInsets.all(4),
-                      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(8)),
-                      child: QrImageView(
-                        data: event.qrCodeSecret,
-                        size: 60,
-                        backgroundColor: Colors.white,
-                      ),
-                    ),
-                  ),
+
                 ],
               ),
             ),
@@ -115,7 +103,7 @@ class EventCard extends StatelessWidget {
                     child: ElevatedButton.icon(
                       onPressed: isPast ? null : onRSVP,
                       icon: Icon(isPast ? Icons.event_busy_rounded : Icons.how_to_reg_rounded, size: 18),
-                      label: Text(isPast ? 'Event Ended' : 'RSVP & Get QR Pass'),
+                      label: Text(isPast ? 'Event Ended' : 'RSVP'),
                     ),
                   ),
                 ],

@@ -16,12 +16,8 @@ class AlumniDashboardScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Dashboard'),
+        title: const Text('Alumni Connect'),
         actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.notifications_none_rounded),
-          ),
           Padding(
             padding: const EdgeInsets.only(right: 12),
             child: _ProfileCorner(
@@ -44,57 +40,32 @@ class AlumniDashboardScreen extends ConsumerWidget {
           children: [
             Container(
               width: double.infinity,
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
                 color: AppColors.primaryBlue,
-                borderRadius: BorderRadius.circular(18),
+                borderRadius: BorderRadius.circular(16),
               ),
               child: Row(
                 children: [
                   CircleAvatar(
-                    radius: 26,
+                    radius: 20,
                     backgroundColor: Colors.white24,
                     child: Text(
                       profileName.trim().isNotEmpty ? profileName[0].toUpperCase() : 'A',
-                      style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
+                      style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
                     ),
                   ),
-                  const SizedBox(width: 12),
+                  const SizedBox(width: 10),
                   Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Hello, ${profileName.split(' ').first}',
-                          style: Theme.of(context).textTheme.titleLarge?.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          'Proud Alumni',
-                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.white70),
-                        ),
-                      ],
+                    child: Text(
+                      'Alumni Connect',
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
                     ),
                   ),
                 ],
               ),
             ),
             const SizedBox(height: 18),
-            GridView.count(
-              crossAxisCount: 2,
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              crossAxisSpacing: 12,
-              mainAxisSpacing: 12,
-              childAspectRatio: 1.08,
-              children: [
-                _StatCard(label: 'Upcoming Events', value: '2', accent: const Color(0xFFEAF0FF), icon: Icons.event_available_rounded),
-                _StatCard(label: 'My Donations', value: '₹10,000', accent: const Color(0xFFFFF3D6), icon: Icons.volunteer_activism_rounded),
-                _StatCard(label: 'Mentorship Requests', value: '5', accent: const Color(0xFFE8F7EC), icon: Icons.psychology_rounded),
-                _StatCard(label: 'Alumni Directory', value: '1200+', accent: const Color(0xFFFCE8ED), icon: Icons.people_rounded),
-              ],
-            ),
-            const SizedBox(height: 20),
             Text('Upcoming Event', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
             const SizedBox(height: 10),
             Card(
@@ -233,19 +204,19 @@ class _StatCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(14),
+      padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         color: accent,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(14),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(icon, color: AppColors.primaryBlue, size: 20),
-          const SizedBox(height: 14),
-          Text(label, style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold)),
-          const SizedBox(height: 6),
-          Text(value, style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold, color: AppColors.primaryBlue)),
+          Icon(icon, color: AppColors.primaryBlue, size: 18),
+          const SizedBox(height: 10),
+          Text(label, style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.bold)),
+          const SizedBox(height: 4),
+          Text(value, style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold, color: AppColors.primaryBlue)),
         ],
       ),
     );

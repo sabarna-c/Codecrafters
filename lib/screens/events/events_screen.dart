@@ -16,13 +16,6 @@ class EventsScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('BIT Events & Programs'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.qr_code_scanner_rounded),
-            tooltip: 'Scan QR Attendance',
-            onPressed: () => context.push('/events/scan'),
-          ),
-        ],
       ),
       body: RefreshIndicator(
         onRefresh: () => ref.refresh(eventsListProvider.future),
@@ -54,7 +47,7 @@ class EventsScreen extends ConsumerWidget {
                     final repo = ref.read(eventsRepositoryProvider);
                     final ok = await repo.registerRSVP(event.id, userId);
                     if (context.mounted && ok) {
-                      SnackbarUtils.showSuccess(context, 'RSVP Confirmed! Your QR pass is ready.');
+                      SnackbarUtils.showSuccess(context, 'RSVP Confirmed successfully.');
                     }
                   },
                 );

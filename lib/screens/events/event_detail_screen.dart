@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:qr_flutter/qr_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../models/event_model.dart';
 import '../../providers/auth_provider.dart';
@@ -37,25 +36,7 @@ class EventDetailScreen extends ConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // QR Ticket
-                  Center(
-                    child: Container(
-                      padding: const EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(16),
-                        boxShadow: [BoxShadow(color: Colors.black.withAlpha(20), blurRadius: 12, offset: const Offset(0, 4))],
-                      ),
-                      child: Column(
-                        children: [
-                          QrImageView(data: event.qrCodeSecret, size: 160, backgroundColor: Colors.white),
-                          const SizedBox(height: 8),
-                          const Text('Show this QR at the entrance', style: TextStyle(color: Colors.grey, fontSize: 12)),
-                        ],
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 24),
+                  const SizedBox(height: 12),
                   Text('About This Event', style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold)),
                   const SizedBox(height: 8),
                   Text(event.description, style: Theme.of(context).textTheme.bodyLarge?.copyWith(height: 1.5)),
@@ -79,13 +60,13 @@ class EventDetailScreen extends ConsumerWidget {
                   if (!isPast) ...[
                     const SizedBox(height: 12),
                     CustomButton(
-                      text: 'Confirm RSVP & Download Pass',
+                      text: 'Confirm RSVP',
                       isSecondary: event.isVirtual,
                       onPressed: () async {
                         final userId = ref.read(authControllerProvider).user?.id ?? 'demo';
                         await ref.read(eventsRepositoryProvider).registerRSVP(event.id, userId);
                         if (context.mounted) {
-                          SnackbarUtils.showSuccess(context, 'RSVP confirmed! Show QR code above at the event.');
+                          SnackbarUtils.showSuccess(context, 'RSVP confirmed successfully.');
                         }
                       },
                     ),
