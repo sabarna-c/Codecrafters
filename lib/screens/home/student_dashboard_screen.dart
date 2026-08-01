@@ -16,8 +16,12 @@ class StudentDashboardScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Student Hub'),
+        title: const Text('Dashboard'),
         actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.notifications_none_rounded),
+          ),
           Padding(
             padding: const EdgeInsets.only(right: 12),
             child: _ProfileCorner(
@@ -34,7 +38,7 @@ class StudentDashboardScreen extends ConsumerWidget {
         ],
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.fromLTRB(16, 16, 16, 24),
+        padding: const EdgeInsets.fromLTRB(16, 12, 16, 24),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -43,48 +47,92 @@ class StudentDashboardScreen extends ConsumerWidget {
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
                 color: AppColors.primaryBlue,
-                borderRadius: BorderRadius.circular(16),
+                borderRadius: BorderRadius.circular(18),
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              child: Row(
                 children: [
-                  Text(
-                    'Welcome back, ${profileName.split(' ').first}',
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold, color: Colors.white),
+                  CircleAvatar(
+                    radius: 26,
+                    backgroundColor: Colors.white24,
+                    child: Text(
+                      profileName.trim().isNotEmpty ? profileName[0].toUpperCase() : 'S',
+                      style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
+                    ),
                   ),
-                  const SizedBox(height: 4),
-                  Text(
-                    'BIT Department of Computer Science',
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.white70),
-                  ),
-                  const SizedBox(height: 10),
-                  Text(
-                    'Mentorship Program 2026 Active',
-                    style: Theme.of(context).textTheme.labelMedium?.copyWith(color: Colors.white),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Hello, ${profileName.split(' ').first}',
+                          style: Theme.of(context).textTheme.titleLarge?.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          'Proud Alumni',
+                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.white70),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 18),
             GridView.count(
               crossAxisCount: 2,
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               crossAxisSpacing: 12,
               mainAxisSpacing: 12,
-              childAspectRatio: 1.18,
+              childAspectRatio: 1.08,
               children: [
-                _HubCard(title: 'Alumni Directory', subtitle: 'Search BIT alumni', onTap: () => context.push(AppRoutes.directory)),
-                _HubCard(title: 'Mentorship', subtitle: 'Book guidance', onTap: () => context.push(AppRoutes.mentorship)),
-                _HubCard(title: 'Events', subtitle: 'See meetups', onTap: () => context.push(AppRoutes.events)),
+                _StatCard(label: 'Upcoming Events', value: '2', accent: const Color(0xFFEAF0FF), icon: Icons.event_available_rounded),
+                _StatCard(label: 'My Donations', value: '₹10,000', accent: const Color(0xFFFFF3D6), icon: Icons.volunteer_activism_rounded),
+                _StatCard(label: 'Announcements', value: '5', accent: const Color(0xFFE8F7EC), icon: Icons.campaign_rounded),
+                _StatCard(label: 'Alumni Directory', value: '1200+', accent: const Color(0xFFFCE8ED), icon: Icons.people_rounded),
               ],
             ),
             const SizedBox(height: 20),
+            Text('Upcoming Event', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
+            const SizedBox(height: 10),
             Card(
-              child: ListTile(
-                title: const Text('BIT Innovation Fund 2026', style: TextStyle(fontWeight: FontWeight.bold)),
-                subtitle: const Text('Support scholarships & lab equipment'),
-                onTap: () => context.push(AppRoutes.donation),
+              child: Padding(
+                padding: const EdgeInsets.all(12),
+                child: Row(
+                  children: [
+                    Container(
+                      width: 80,
+                      height: 80,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        color: Colors.grey.shade200,
+                      ),
+                      child: const Icon(Icons.event, size: 40, color: AppColors.primaryBlue),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text('Alumni Meet 2024', style: TextStyle(fontWeight: FontWeight.bold)),
+                          const SizedBox(height: 4),
+                          Text('25 May 2024', style: Theme.of(context).textTheme.bodySmall),
+                          Text('Chennai', style: Theme.of(context).textTheme.bodySmall),
+                          const SizedBox(height: 8),
+                          SizedBox(
+                            width: double.infinity,
+                            child: ElevatedButton(
+                              onPressed: () => context.push(AppRoutes.events),
+                              child: const Text('Register Now'),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ],
@@ -92,24 +140,23 @@ class StudentDashboardScreen extends ConsumerWidget {
       ),
       bottomNavigationBar: NavigationBar(
         destinations: const [
-          NavigationDestination(icon: Icon(Icons.people_alt_outlined), label: 'Directory'),
-          NavigationDestination(icon: Icon(Icons.psychology_outlined), label: 'Mentor'),
+          NavigationDestination(icon: Icon(Icons.home_rounded), label: 'Home'),
           NavigationDestination(icon: Icon(Icons.event_outlined), label: 'Events'),
           NavigationDestination(icon: Icon(Icons.volunteer_activism_outlined), label: 'Donate'),
+          NavigationDestination(icon: Icon(Icons.people_alt_outlined), label: 'Directory'),
         ],
         onDestinationSelected: (index) {
           switch (index) {
             case 0:
-              context.push(AppRoutes.directory);
               break;
             case 1:
-              context.push(AppRoutes.mentorship);
-              break;
-            case 2:
               context.push(AppRoutes.events);
               break;
-            case 3:
+            case 2:
               context.push(AppRoutes.donation);
+              break;
+            case 3:
+              context.push(AppRoutes.directory);
               break;
           }
         },
@@ -156,9 +203,9 @@ class _ProfileCorner extends StatelessWidget {
             ],
           ),
         ),
-        PopupMenuItem<int>(
+        const PopupMenuItem<int>(
           value: 1,
-          child: const Text('Logout'),
+          child: Text('Logout'),
         ),
       ],
       onSelected: (value) {
@@ -170,35 +217,36 @@ class _ProfileCorner extends StatelessWidget {
   }
 }
 
-class _HubCard extends StatelessWidget {
-  final String title;
-  final String subtitle;
-  final VoidCallback onTap;
+class _StatCard extends StatelessWidget {
+  final String label;
+  final String value;
+  final Color accent;
+  final IconData icon;
 
-  const _HubCard({
-    required this.title,
-    required this.subtitle,
-    required this.onTap,
+  const _StatCard({
+    required this.label,
+    required this.value,
+    required this.accent,
+    required this.icon,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 1,
-      child: InkWell(
-        onTap: onTap,
-        child: Padding(
-          padding: const EdgeInsets.all(14),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(title, style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold)),
-              const SizedBox(height: 6),
-              Text(subtitle, style: Theme.of(context).textTheme.bodySmall, maxLines: 2, overflow: TextOverflow.ellipsis),
-            ],
-          ),
-        ),
+    return Container(
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: accent,
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(icon, color: AppColors.primaryBlue, size: 20),
+          const SizedBox(height: 14),
+          Text(label, style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold)),
+          const SizedBox(height: 6),
+          Text(value, style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold, color: AppColors.primaryBlue)),
+        ],
       ),
     );
   }
